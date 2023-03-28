@@ -25,7 +25,7 @@ function ListCategories() {
   
     if (loading === false && data != null) {
       const itemsByCategoryId = groupItemsByCategoryId(data.elements);
-  
+      console.log(itemsByCategoryId)
       return (
         <div>
           {Object.entries(itemsByCategoryId).map(([categoryId, items]) => (
@@ -33,7 +33,10 @@ function ListCategories() {
              <ul>Category Name: {categoryId}
 
               {items.map((item) => (
-                <li key={item.id}>{item.name}</li>
+                <li key={item.id}>
+                  {/* <img width={'100px'} src={`https://dev.cloverstatic.com/menu-assets/items/${item.id}.jpeg`} />*/}
+                  {item.name} - {item.price} 
+                </li>
               ))}
               </ul> 
             </div>
