@@ -1,11 +1,9 @@
-import ListCategories from './ListCategories'
-
-import './App.css';
+import Kiosk from './Kiosk'
 
 function App() {
   return (
     <div className="App">
-      <ListCategories /> 
+      <Kiosk /> 
     </div>
   );
 }

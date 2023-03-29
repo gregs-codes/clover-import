@@ -1,6 +1,6 @@
 import React,{ useState } from 'react';
 import Fetch from './Fetch';
-import './Kiosk.css'
+import './Kiosk.scss';
 
 function groupItemsByCategoryId(items) {
     return items.reduce((acc, item) => {
@@ -17,7 +17,7 @@ function groupItemsByCategoryId(items) {
     }, {});
 }
 
-function ListCategories() {
+function Kiosk() {
     const TAX_RATE = 0.05;
     
     const { data, loading, error } = Fetch("items");
@@ -146,7 +146,7 @@ function ListCategories() {
                         {formatPrice(item.price * item.quantity)}
                       </div>
                       <div>
-                        <button className="remove-btn" onClick={() => removeFromCart(item)}>
+                        <button className="button btn first" onClick={() => removeFromCart(item)}>
                           Remove
                         </button>
                       </div>
@@ -179,7 +179,7 @@ function ListCategories() {
                     <h3 className="item-name">{item.name}</h3>
                     <p className="item-description">{item.description}</p>
                     <p className="item-price">{formatPrice(item.price)}</p>
-                    <button onClick={() => handleAddToCart(item)} className="add-to-cart-button">
+                    <button onClick={() => handleAddToCart(item)} className="button btn second">
                       Add to Cart
                     </button>
                 </div>
@@ -191,7 +191,54 @@ function ListCategories() {
       );
             
     }
-    if (loading) return <h1> LOADING ... </h1>;
+    if (loading) return (
+      <div className="kiosk-view">
+        <header className="top-menu">
+          <h1 className="logo">My Kiosk</h1>
+          <div className="cart-container">
+            Cart
+          </div>
+        </header>
+        <div className="category">
+          <h2 className="category-heading">Loading</h2>
+          <div className="item-grid">
+            <div className="item">
+              <img src={`https://source.unsplash.com/200x200/?circle`} className="item-image skeleton" />
+              <h3 className="item-name skeleton">&nbsp;</h3>
+              <p className="item-description skeleton">&nbsp;</p>
+              <p className="item-price skeleton">&nbsp;</p>
+              <button className="add-to-cart-button skeleton" />
+            </div>
+            <div className="item">
+              <img src={`https://source.unsplash.com/200x200/?circle`} className="item-image skeleton" />
+              <h3 className="item-name skeleton">&nbsp;</h3>
+              <p className="item-description skeleton">&nbsp;</p>
+              <p className="item-price skeleton">&nbsp;</p>
+              <button className="add-to-cart-button skeleton" />
+            </div>
+          </div>
+        </div>
+        <div className="category">
+          <h2 className="category-heading">Loading</h2>
+          <div className="item-grid">
+            <div className="item">
+              <img className="item-image skeleton" />
+              <h3 className="item-name skeleton">&nbsp;</h3>
+              <p className="item-description skeleton">&nbsp;</p>
+              <p className="item-price skeleton">&nbsp;</p>
+              <button className="add-to-cart-button skeleton" />
+            </div>
+            <div className="item">
+              <img className="item-image skeleton" />
+              <h3 className="item-name skeleton">&nbsp;</h3>
+              <p className="item-description skeleton">&nbsp;</p>
+              <p className="item-price skeleton">&nbsp;</p>
+              <button className="add-to-cart-button skeleton" />
+            </div>
+          </div>
+        </div>
+      </div>
+      );
     if (error) console.log(error);
   }
-export default ListCategories;
+export default Kiosk;
