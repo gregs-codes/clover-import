@@ -18,7 +18,7 @@ function groupItemsByCategoryId(items) {
 }
 
 function ListCategories() {
-   // const [categoryObj, setCategory] = useState();
+
     const { data, loading, error } = Fetch("items");
     const [cart, setCart] = useState([]);
     const [showCart, setShowCart] = useState(false);
@@ -68,11 +68,17 @@ function ListCategories() {
           {showCart && (
             <div className="cart-dropdown">
               <h3 className="cart-title">Your Cart</h3>
+              <div className="cart-header">
+                <div className="cart-header-item">Item</div>
+                <div className="cart-header-quantity">Quantity</div>
+                <div className="cart-header-price">Price</div>
+                <div className="cart-header-remove">Remove</div>
+            </div>
               {cart.length > 0 ? (
                 cart.map((item, index) => (
                   <div key={item.id} className="cart-item">
                     <div className="cart-item-details">
-                      <p className="cart-item-name">{item.name}</p>
+                      <div className="cart-item-name">{item.name}</div>
                       <div className="cart-item-quantity">
                         <button
                           className="cart-item-quantity-button"
@@ -88,7 +94,10 @@ function ListCategories() {
                           min="1"
                           value={item.quantity}
                           onChange={(event) =>
-                            updateCartItemQuantity(index, parseInt(event.target.value))
+                            updateCartItemQuantity(
+                              index,
+                              parseInt(event.target.value)
+                            )
                           }
                         />
                         <button
@@ -100,10 +109,12 @@ function ListCategories() {
                           +
                         </button>
                       </div>
-                      <p className="cart-item-price">{formatPrice(item.price)}</p>
-                      <button className="remove-btn" onClick={() => removeFromCart(item)}>
-                        Remove
-                      </button>
+                      <div className="cart-item-price">{formatPrice(item.price)}</div>
+                      <div>
+                        <button className="remove-btn" onClick={() => removeFromCart(item)}>
+                          Remove
+                        </button>
+                      </div>
                     </div>
                   </div>
                 ))
@@ -111,7 +122,7 @@ function ListCategories() {
                 <p className="cart-empty-message">Your cart is empty</p>
               )}
             </div>
-        )}
+          )}
           {Object.entries(itemsByCategoryId).map(([categoryId, items]) => (
             <div key={categoryId} className="category">
               <h2 className="category-heading">{categoryId}</h2>
