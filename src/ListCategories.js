@@ -56,60 +56,61 @@ function ListCategories() {
   
       return (
         <div className="kiosk-view">
-        <header className="top-menu">
-          <h1 className="logo">My Kiosk</h1>
-          <div className="cart-container" onClick={handleShowCart}>
-            Cart
-            {cart.length > 0 && (
-              <div className="cart-count">{cart.length}</div>
-            )}
-          </div>
-        </header>
-        {showCart && (
-          <div className="cart-dropdown">
-            <h3 className="cart-title">Your Cart</h3>
-            {cart.length > 0 ? (
-              cart.map((item, index) => (
-                <div key={item.id} className="cart-item">
-                  {/* <img src={item.imageUrl} alt={item.name} className="cart-item-image" /> */}
-                  <div className="cart-item-details">
-                    <h4 className="cart-item-name">{item.name}</h4>
-                    <p className="cart-item-price">{formatPrice(item.price)}</p>
-                    <div className="cart-item-quantity">
-                      <button
-                        className="cart-item-quantity-button"
-                        onClick={() =>
-                          updateCartItemQuantity(index, item.quantity - 1)
-                        }
-                        disabled={item.quantity === 1}
-                      >
-                        -
-                      </button>
-                      <input
-                        type="number"
-                        min="1"
-                        value={item.quantity}
-                        onChange={(event) =>
-                          updateCartItemQuantity(index, parseInt(event.target.value))
-                        }
-                      />
-                      <button
-                        className="cart-item-quantity-button"
-                        onClick={() =>
-                          updateCartItemQuantity(index, item.quantity + 1)
-                        }
-                      >
-                        +
+          <header className="top-menu">
+            <h1 className="logo">My Kiosk</h1>
+            <div className="cart-container" onClick={handleShowCart}>
+              Cart
+              {cart.length > 0 && 
+              <div className="cart-count"> {cart.reduce((total, item) => total + item.quantity, 0)}</div>
+              }
+            </div>
+          </header>
+          {showCart && (
+            <div className="cart-dropdown">
+              <h3 className="cart-title">Your Cart</h3>
+              {cart.length > 0 ? (
+                cart.map((item, index) => (
+                  <div key={item.id} className="cart-item">
+                    <div className="cart-item-details">
+                      <p className="cart-item-name">{item.name}</p>
+                      <div className="cart-item-quantity">
+                        <button
+                          className="cart-item-quantity-button"
+                          onClick={() =>
+                            updateCartItemQuantity(index, item.quantity - 1)
+                          }
+                          disabled={item.quantity === 1}
+                        >
+                          -
+                        </button>
+                        <input
+                          type="number"
+                          min="1"
+                          value={item.quantity}
+                          onChange={(event) =>
+                            updateCartItemQuantity(index, parseInt(event.target.value))
+                          }
+                        />
+                        <button
+                          className="cart-item-quantity-button"
+                          onClick={() =>
+                            updateCartItemQuantity(index, item.quantity + 1)
+                          }
+                        >
+                          +
+                        </button>
+                      </div>
+                      <p className="cart-item-price">{formatPrice(item.price)}</p>
+                      <button className="remove-btn" onClick={() => removeFromCart(item)}>
+                        Remove
                       </button>
                     </div>
-                    <button className="remove-btn" onClick={() => removeFromCart(item)}>Remove</button>
                   </div>
-                </div>
-              ))
-            ) : (
-              <p className="cart-empty-message">Your cart is empty</p>
-            )}
-          </div>
+                ))
+              ) : (
+                <p className="cart-empty-message">Your cart is empty</p>
+              )}
+            </div>
         )}
           {Object.entries(itemsByCategoryId).map(([categoryId, items]) => (
             <div key={categoryId} className="category">
