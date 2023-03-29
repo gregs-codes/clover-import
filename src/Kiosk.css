@@ -1,0 +1,160 @@
+.kiosk-view {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .top-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3f51b5;
+    color: #fff;
+    padding: 10px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  
+  
+  .logo {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .cart-container {
+    position: relative;
+    cursor: pointer;
+    left: -40px;
+    top: 5px;
+  }
+  
+  .cart-icon {
+    width: 24px;
+    height: 24px;
+    fill: #fff;
+  }
+  
+  .cart-count {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: #f44336;
+    color: #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: bold;
+  }
+  
+  .cart-dropdown {
+    position: fixed;
+    top: 50px;
+    right: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .cart-title {
+    font-size: 18px;
+    margin: 0 0 10px 0;
+  }
+  
+  .cart-item {
+    display: flex;
+    margin-bottom: 10px;
+  }
+  
+  .cart-item-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .cart-item-details {
+    flex-grow: 1;
+  }
+  
+  .cart-item-name {
+    margin: 0;
+  }
+  
+  .cart-item-price {
+    margin: 0;
+    color: #f44336;
+    font-weight: bold;
+  }
+  
+  .cart-empty-message {
+    margin: 0;
+    font-style: italic;
+    color: #999;
+  }
+  
+  .category {
+    margin: 50px 0 0 30px;
+    width: 100%;
+  }
+  
+  .category-heading {
+    margin: 0 0 10px 0;
+    font-size: 24px;
+    text-align: left;
+  }
+  
+  .item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 20px;
+  }
+  
+  .item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .item-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  .item-name {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .item-price {
+    margin: 5px 0 0 0;
+    color: #f44336;
+    font-weight: bold;
+  }
+  
+  .add-to-cart-button {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color;
+  }
