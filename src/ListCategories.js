@@ -18,7 +18,8 @@ function groupItemsByCategoryId(items) {
 }
 
 function ListCategories() {
-
+    const TAX_RATE = 0.05;
+    
     const { data, loading, error } = Fetch("items");
     const [cart, setCart] = useState([]);
     const [showCart, setShowCart] = useState(false);
@@ -47,9 +48,41 @@ function ListCategories() {
       setCart(newCart);
     };
 
-   function formatPrice(price) {
-    return price.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 });
-  }
+    function formatPrice(price) {
+      let formattedPrice;
+
+      if (price.toString().length === 3) {
+        formattedPrice = (price / 100).toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+      } else if (price.toString().length === 4) {
+        formattedPrice = (price / 100).toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+      } else if (price.toString().length === 5) {
+        formattedPrice = (price / 100).toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+      } else {
+        formattedPrice = price.toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+      }
+
+      return formattedPrice;
+    }
     if (loading === false && data != null) {
       const itemsByCategoryId = groupItemsByCategoryId(data.elements);
       console.log(itemsByCategoryId)
@@ -109,7 +142,9 @@ function ListCategories() {
                           +
                         </button>
                       </div>
-                      <div className="cart-item-price">{formatPrice(item.price)}</div>
+                      <div className="cart-item-price">
+                        {formatPrice(item.price * item.quantity)}
+                      </div>
                       <div>
                         <button className="remove-btn" onClick={() => removeFromCart(item)}>
                           Remove
@@ -121,6 +156,17 @@ function ListCategories() {
               ) : (
                 <p className="cart-empty-message">Your cart is empty</p>
               )}
+              <div className="cart-summary">
+                <p className="cart-subtotal">
+                  Subtotal: {formatPrice(cart.reduce((total, item) => total + item.price * item.quantity, 0))}
+                </p>
+                <p className="cart-taxes">
+                  Taxes ({(TAX_RATE * 100).toFixed(0)}%): {formatPrice(cart.reduce((total, item) => total + item.price * item.quantity, 0) * TAX_RATE)}
+                </p>
+                <p className="cart-total">
+                  Total: {formatPrice(cart.reduce((total, item) => total + item.price * item.quantity, 0) * (1 + TAX_RATE))}
+                </p>
+              </div>
             </div>
           )}
           {Object.entries(itemsByCategoryId).map(([categoryId, items]) => (
