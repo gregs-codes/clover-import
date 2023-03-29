@@ -149,12 +149,62 @@
   }
   
   .add-to-cart-button {
-    background-color: #f44336;
-    color: #fff;
+    background-color: #4caf50;
+    color: #ffffff;
     border: none;
-    border-radius: 5px;
-    padding: 10px;
-    margin-top: 10px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color;
+    transition: background-color 0.2s ease;
+  }
+  
+  .add-to-cart-button:hover {
+    background-color: #388e3c;
+  }
+
+  /* "remove from cart" button */
+.remove-btn {
+    background-color: #e74c3c; /* change the background color */
+    color: #fff; /* change the font color */
+    border: none; /* remove the border */
+    padding: 10px 20px; /* adjust the padding */
+    font-size: 16px; /* adjust the font size */
+    cursor: pointer; /* add a pointer cursor */
+    border-radius: 5px; /* add a border radius */
+  }
+  
+  .remove-btn:hover {
+    background-color: #c0392b; /* change the background color on hover */
+  }
+
+  .quantity {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100px;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+  }
+  
+  .cart-item-quantity button {
+    width: 30px;
+    height: 30px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .cart-item-quantity input {
+    width: 40px;
+    height: 30px;
+    text-align: center;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
   }

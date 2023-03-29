@@ -23,7 +23,15 @@ function ListCategories() {
     const [cart, setCart] = useState([]);
     const [showCart, setShowCart] = useState(false);
     const handleAddToCart = (item) => {
-      setCart([...cart, item]);
+      const existingItem = cart.find((cartItem) => cartItem.id === item.id);
+      if (existingItem) {
+        const updatedCart = cart.map((cartItem) =>
+          cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+        );
+        setCart(updatedCart);
+      } else {
+        setCart([...cart, { ...item, quantity: 1 }]);
+      }
     };
     const handleShowCart = () => {
       setShowCart(!showCart);
@@ -31,6 +39,11 @@ function ListCategories() {
     const removeFromCart = (item) => {
       const newCart = [...cart];
       newCart.splice(item, 1);
+      setCart(newCart);
+    };
+    const updateCartItemQuantity = (index, newQuantity) => {
+      const newCart = [...cart];
+      newCart[index].quantity = newQuantity;
       setCart(newCart);
     };
 
@@ -56,13 +69,40 @@ function ListCategories() {
           <div className="cart-dropdown">
             <h3 className="cart-title">Your Cart</h3>
             {cart.length > 0 ? (
-              cart.map((item) => (
+              cart.map((item, index) => (
                 <div key={item.id} className="cart-item">
-                  <img src={item.imageUrl} alt={item.name} className="cart-item-image" />
+                  {/* <img src={item.imageUrl} alt={item.name} className="cart-item-image" /> */}
                   <div className="cart-item-details">
                     <h4 className="cart-item-name">{item.name}</h4>
                     <p className="cart-item-price">{formatPrice(item.price)}</p>
-                    <button onClick={() => removeFromCart(item)}>Remove</button>
+                    <div className="cart-item-quantity">
+                      <button
+                        className="cart-item-quantity-button"
+                        onClick={() =>
+                          updateCartItemQuantity(index, item.quantity - 1)
+                        }
+                        disabled={item.quantity === 1}
+                      >
+                        -
+                      </button>
+                      <input
+                        type="number"
+                        min="1"
+                        value={item.quantity}
+                        onChange={(event) =>
+                          updateCartItemQuantity(index, parseInt(event.target.value))
+                        }
+                      />
+                      <button
+                        className="cart-item-quantity-button"
+                        onClick={() =>
+                          updateCartItemQuantity(index, item.quantity + 1)
+                        }
+                      >
+                        +
+                      </button>
+                    </div>
+                    <button className="remove-btn" onClick={() => removeFromCart(item)}>Remove</button>
                   </div>
                 </div>
               ))
@@ -77,7 +117,7 @@ function ListCategories() {
               <div className="item-grid">
                 {items.map((item) => (
                   <div key={item.id} className="item">
-                    <img src={item.imageUrl} alt={item.name} className="item-image" />
+                    {/* <img src={item.imageUrl} alt={item.name} className="item-image" /> */}
                     <h3 className="item-name">{item.name}</h3>
                     <p className="item-description">{item.description}</p>
                     <p className="item-price">{formatPrice(item.price)}</p>
