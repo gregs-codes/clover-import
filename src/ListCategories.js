@@ -105,7 +105,7 @@ function ListCategories() {
                 <div className="cart-header-item">Item</div>
                 <div className="cart-header-quantity">Quantity</div>
                 <div className="cart-header-price">Price</div>
-                <div className="cart-header-remove">Remove</div>
+                <div className="cart-header-remove">Action</div>
             </div>
               {cart.length > 0 ? (
                 cart.map((item, index) => (
@@ -175,7 +175,7 @@ function ListCategories() {
               <div className="item-grid">
                 {items.map((item) => (
                   <div key={item.id} className="item">
-                    {/* <img src={item.imageUrl} alt={item.name} className="item-image" /> */}
+                    <img src={`https://source.unsplash.com/200x200/?${item.name}`} alt={item.name} className="item-image" />
                     <h3 className="item-name">{item.name}</h3>
                     <p className="item-description">{item.description}</p>
                     <p className="item-price">{formatPrice(item.price)}</p>
