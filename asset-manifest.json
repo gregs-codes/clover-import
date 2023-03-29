@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/clover-import/static/css/main.1a78ee84.css",
-    "main.js": "/clover-import/static/js/main.a0c7766d.js",
+    "main.css": "/clover-import/static/css/main.71241497.css",
+    "main.js": "/clover-import/static/js/main.db1f7d94.js",
     "static/js/787.e2f262b7.chunk.js": "/clover-import/static/js/787.e2f262b7.chunk.js",
     "index.html": "/clover-import/index.html",
-    "main.1a78ee84.css.map": "/clover-import/static/css/main.1a78ee84.css.map",
-    "main.a0c7766d.js.map": "/clover-import/static/js/main.a0c7766d.js.map",
+    "main.71241497.css.map": "/clover-import/static/css/main.71241497.css.map",
+    "main.db1f7d94.js.map": "/clover-import/static/js/main.db1f7d94.js.map",
     "787.e2f262b7.chunk.js.map": "/clover-import/static/js/787.e2f262b7.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.1a78ee84.css",
-    "static/js/main.a0c7766d.js"
+    "static/css/main.71241497.css",
+    "static/js/main.db1f7d94.js"
   ]
 }
