@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-function Fetch(fetchtype) {
+function Fetch(fetchtype, seekingId) {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const merchantID = 'J1X5PEM4A62A1',
     urlClover = `https://sandbox.dev.clover.com/v3/merchants/${merchantID}`,
     fetchCategoriesURI = '/categories',
-    fetchItemsURI = '/items?expand=categories',
-    fetchModifiersURI = '/modifier_groups',
+    fetchItemsURI = '/items?expand=categories%2CmodifierGroups',
+    fetchModifiersURI = `/modifier_groups/${seekingId}/modifiers`,
     options = {
     method: 'GET',
     headers: {

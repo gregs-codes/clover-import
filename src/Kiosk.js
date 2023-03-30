@@ -1,5 +1,7 @@
-import React,{ useState } from 'react';
-import Fetch from './Fetch';
+import React,{ useState } from 'react'
+import Fetch from './Fetch'
+import Modifiers from './Modifiers'
+import Loading from './components/loader/Loading'
 import './Kiosk.scss';
 
 function groupItemsByCategoryId(items) {
@@ -175,10 +177,15 @@ function Kiosk() {
               <div className="item-grid">
                 {items.map((item) => (
                   <div key={item.id} className="item">
-                    <img src={`https://source.unsplash.com/200x200/?${item.name}`} alt={item.name} className="item-image" />
+                    <div>
+                      <p className="item-price">{formatPrice(item.price)}</p>
+                      <img src={`https://source.unsplash.com/200x200/?${item.name}`} alt={item.name} className="item-image" />
+                    </div>
                     <h3 className="item-name">{item.name}</h3>
                     <p className="item-description">{item.description}</p>
-                    <p className="item-price">{formatPrice(item.price)}</p>
+                    {item.modifierGroups.elements[0]?.id &&
+                      <Modifiers modifierGroupId={item.modifierGroups?.elements[0]?.id} />
+                    }
                     <button onClick={() => handleAddToCart(item)} className="button btn second">
                       Add to Cart
                     </button>
@@ -192,52 +199,7 @@ function Kiosk() {
             
     }
     if (loading) return (
-      <div className="kiosk-view">
-        <header className="top-menu">
-          <h1 className="logo">My Kiosk</h1>
-          <div className="cart-container">
-            Cart
-          </div>
-        </header>
-        <div className="category">
-          <h2 className="category-heading">Loading</h2>
-          <div className="item-grid">
-            <div className="item">
-              <img src={`https://source.unsplash.com/200x200/?circle`} className="item-image skeleton" />
-              <h3 className="item-name skeleton">&nbsp;</h3>
-              <p className="item-description skeleton">&nbsp;</p>
-              <p className="item-price skeleton">&nbsp;</p>
-              <button className="add-to-cart-button skeleton" />
-            </div>
-            <div className="item">
-              <img src={`https://source.unsplash.com/200x200/?circle`} className="item-image skeleton" />
-              <h3 className="item-name skeleton">&nbsp;</h3>
-              <p className="item-description skeleton">&nbsp;</p>
-              <p className="item-price skeleton">&nbsp;</p>
-              <button className="add-to-cart-button skeleton" />
-            </div>
-          </div>
-        </div>
-        <div className="category">
-          <h2 className="category-heading">Loading</h2>
-          <div className="item-grid">
-            <div className="item">
-              <img className="item-image skeleton" />
-              <h3 className="item-name skeleton">&nbsp;</h3>
-              <p className="item-description skeleton">&nbsp;</p>
-              <p className="item-price skeleton">&nbsp;</p>
-              <button className="add-to-cart-button skeleton" />
-            </div>
-            <div className="item">
-              <img className="item-image skeleton" />
-              <h3 className="item-name skeleton">&nbsp;</h3>
-              <p className="item-description skeleton">&nbsp;</p>
-              <p className="item-price skeleton">&nbsp;</p>
-              <button className="add-to-cart-button skeleton" />
-            </div>
-          </div>
-        </div>
-      </div>
+      <Loading />
       );
     if (error) console.log(error);
   }

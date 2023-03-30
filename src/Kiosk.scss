@@ -1,5 +1,15 @@
 @import 'buttons';
 
+$lightBlue: #3498db;
+$black: #000000;
+$green: #2ecc71;
+$red: #e74c3c;
+$blue: #3498db;
+$yellow: #f1c40f;
+$purple: #8e44ad;
+$turquoise: #1abc9c;
+$text-shadow: #fff;
+
 .kiosk-view {
   margin: 0;
   padding: 0;
@@ -55,6 +65,7 @@
 }
 
 .cart-container {
+  font-size: 20px;
   position: relative;
   cursor: pointer;
   left: -40px;
@@ -124,7 +135,7 @@
 
 .cart-item-price {
   margin: 0;
-  color: #f44336;
+  color: $black;
   font-weight: bold;
 }
 
@@ -141,7 +152,7 @@
 
 .category-heading {
   margin: 0 0 10px 0;
-  font-size: 24px;
+  font-size: 36px;
   text-align: left;
 }
 
@@ -161,19 +172,24 @@
 .item-image {
   width: 200px;
   object-fit: cover;
-  margin-bottom: 10px;
-  border-radius: 100%;
+ //  margin-bottom: 10px;
+  border-radius: 18%;
 }
 
 .item-name {
   margin: 0;
-  font-size: 18px;
+  font-size: 38px;
+  color: $lightBlue
 }
 
 .item-price {
+  position: relative;
+  font-size: 52px;
   margin: 5px 0 0 0;
-  color: #f44336;
+  color: $red;
   font-weight: bold;
+  top: 15px;
+  text-shadow: -1px -1px 0 $text-shadow, 1px -1px 0 $text-shadow, -1px 1px 0 $text-shadow, 1px 1px 0 $text-shadow;
 }
 
 .add-to-cart-button {
@@ -194,7 +210,7 @@
 
 /* "remove from cart" button */
 .remove-btn {
-  background-color: #000000;
+  background-color: $black;
   color: #fff;
   border: none;
   padding: 5px 10px;

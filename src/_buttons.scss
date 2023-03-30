@@ -1,4 +1,4 @@
-//Colours
+//Colors
 $green: #2ecc71;
 $red: #e74c3c;
 $blue: #3498db;
@@ -46,58 +46,20 @@ $turquoise: #1abc9c;
   
   //BUTTON 2
   .second {
-    border-radius: 3em;
     border-color: $turquoise;
     color: #fff;
     background: {
       image: linear-gradient(to right, 
-        transparentize($turquoise, 0.4),
-        transparentize($turquoise, 0.4) 5%,
-        $turquoise 5%, 
-        $turquoise 10%,
-        transparentize($turquoise, 0.4) 10%,
-        transparentize($yellow, 0.4) 15%,
-        $turquoise 15%, 
-        $turquoise 20%,
-        transparentize($turquoise, 0.4) 20%,
-        transparentize($turquoise, 0.4) 25%,
-        $turquoise 25%, 
-        $turquoise 30%,
-        transparentize($turquoise, 0.4) 30%,
-        transparentize($turquoise, 0.4) 35%,
-        $turquoise 35%, 
-        $turquoise 40%,
-        transparentize($turquoise, 0.4) 40%,
-        transparentize($turquoise, 0.4) 45%,
-        $turquoise 45%, 
-        $turquoise 50%,
-        transparentize($turquoise, 0.4) 50%,
-        transparentize($turquoise, 0.4) 55%,
-        $turquoise 55%, 
-        $turquoise 60%,
-        transparentize($turquoise, 0.4) 60%,
-        transparentize($turquoise, 0.4) 65%,
-        $turquoise 65%, 
-        $turquoise 70%,
-        transparentize($turquoise, 0.4) 70%,
-        transparentize($turquoise, 0.4) 75%,
-        $turquoise 75%, 
-        $turquoise 80%,
-        transparentize($turquoise, 0.4) 80%,
-        transparentize($turquoise, 0.4) 85%,
-        $turquoise 85%, 
-        $turquoise 90%,
-        transparentize($turquoise, 0.4) 90%,
-        transparentize($turquoise, 0.4) 95%,
-        $turquoise 95%, 
-        $turquoise 100%);
+        transparentize($yellow, 0.01),
+        $red 50%, 
+        $red 100%);
       position: 0 0;
       size: 100%;
     }
-    transition: background 300ms ease-in-out;
+    transition: background 800ms ease-in-out;
     
     &:hover {
-      background-position: 100px;
+      background-position: 189px;
     }
   }
   
@@ -117,7 +79,7 @@ $turquoise: #1abc9c;
   .fourth {
     // background: $yellow;
     border-color: $yellow;
-    color: #fff;
+    color: $yellow;
     background: {
       image: linear-gradient(45deg,$yellow 50%, transparent 50%);
       position: 100%;
@@ -176,7 +138,7 @@ $turquoise: #1abc9c;
     transition: background 150ms ease-in-out, color 150ms ease-in-out;
     
     &:hover {
-      color: #fff;
+      color: $blue;
       background-position: 0 100%;
     }
   }
