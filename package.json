@@ -1,7 +1,7 @@
 {
   "name": "clover-merch",
   "version": "0.1.0",
-  "homepage": "https://greg-codez.github.io/clover-import/",
+  "homepage": "https://gregs-codes.github.io/clover-import/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
