@@ -3,33 +3,17 @@ import Fetch from './common/data/Fetch'
 import Cart from './components/Cart/Cart'
 import Item from './components/item/Item'
 import Loading from './components/loader/Loading'
+import { groupItemsByCategoryId, formatPrice } from './helpers';
 import './Kiosk.scss';
 
 
 
 function Kiosk() {
-    
   const TAX_RATE = 0.05;
-  
   const { data, loading, error } = Fetch("items");
   const [modifiers, setModifiers] = useState({});
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
-  
-  function groupItemsByCategoryId(items) {
-    return items.reduce((acc, item) => {
-    const categoryId = item.categories.elements[0].id;
-    const categoryName = item.categories.elements[0].name;
-
-    if (!acc[categoryId, categoryName]) {
-        acc[categoryId, categoryName] = [];
-    }
-
-    acc[categoryId, categoryName].push(item);
-    
-    return acc;
-    }, {});
-  }
 
   const handleAddToCart = (item, modifiers) => {
     const existingItem = cart.find((cartItem) => cartItem.id === item.id);
@@ -61,45 +45,9 @@ function Kiosk() {
     setCart(newCart);
   };
 
-  function formatPrice(price) {
-    let formattedPrice;
-
-    if (price.toString().length === 3) {
-      formattedPrice = (price / 100).toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    } else if (price.toString().length === 4) {
-      formattedPrice = (price / 100).toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    } else if (price.toString().length === 5) {
-      formattedPrice = (price / 100).toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    } else {
-      formattedPrice = price.toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    }
-
-    return formattedPrice;
-  }
+ 
   if (loading === false && data != null) {
     const itemsByCategoryId = groupItemsByCategoryId(data?.elements);
-    //console.log(modifiers)
-
     return (
       <div className="kiosk-view">
         <header className="top-menu">
@@ -107,7 +55,7 @@ function Kiosk() {
           <div className="cart-container" onClick={handleShowCart}>
             Cart
             {cart.length > 0 && 
-            <div className="cart-count"> {cart.reduce((total, item) => total + item.quantity, 0)}</div>
+             <div className="cart-count"> {cart.reduce((total, item) => total + item.quantity, 0)}</div>
             }
           </div>
         </header>

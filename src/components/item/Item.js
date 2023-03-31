@@ -31,7 +31,7 @@ const Item = (props) => {
                 />
                 }
 
-                <button onClick={() => handleAddToCart(item)} className="button btn second">
+                <button onClick={() => handleAddToCart(item)} className="button btn third">
                 Add to Cart
                 </button>
             </div>
