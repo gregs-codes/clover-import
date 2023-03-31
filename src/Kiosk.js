@@ -23,9 +23,11 @@ function Kiosk() {
     const TAX_RATE = 0.05;
     
     const { data, loading, error } = Fetch("items");
+    const [modifiers, setModifiers] = useState({});
     const [cart, setCart] = useState([]);
     const [showCart, setShowCart] = useState(false);
-    const handleAddToCart = (item) => {
+    
+    const handleAddToCart = (item, modifiers) => {
       const existingItem = cart.find((cartItem) => cartItem.id === item.id);
       if (existingItem) {
         const updatedCart = cart.map((cartItem) =>
@@ -33,17 +35,22 @@ function Kiosk() {
         );
         setCart(updatedCart);
       } else {
-        setCart([...cart, { ...item, quantity: 1 }]);
+        console.log('handle cart', modifiers)
+        setCart([...cart, { ...item, quantity: 1, modifiers }]);
+        setModifiers({ ...modifiers, [item.id]: modifiers });
       }
     };
+
     const handleShowCart = () => {
       setShowCart(!showCart);
     };
+
     const removeFromCart = (item) => {
       const newCart = [...cart];
       newCart.splice(item, 1);
       setCart(newCart);
     };
+
     const updateCartItemQuantity = (index, newQuantity) => {
       const newCart = [...cart];
       newCart[index].quantity = newQuantity;
@@ -87,7 +94,7 @@ function Kiosk() {
     }
     if (loading === false && data != null) {
       const itemsByCategoryId = groupItemsByCategoryId(data.elements);
-      console.log(itemsByCategoryId)
+      
   
       return (
         <div className="kiosk-view">
@@ -184,8 +191,27 @@ function Kiosk() {
                     <h3 className="item-name">{item.name}</h3>
                     <p className="item-description">{item.description}</p>
                     {item.modifierGroups.elements[0]?.id &&
-                      <Modifiers modifierGroupId={item.modifierGroups?.elements[0]?.id} />
+                      <Modifiers
+                        item={item}
+                        modifierGroupId={item.modifierGroups?.elements[0]?.id} 
+                        modifiers={modifiers}
+                        setModifiers={(newModifiers) =>
+                          setModifiers({ ...modifiers, [item.id]: newModifiers })
+                        }
+                        //onClose={() => setShowModifiers(false)}
+                       />
                     }
+
+                  {/* {showModifiers && (
+                    <Modifiers
+                      item={selectedItem}
+                      modifiers={modifiers}
+                      setModifiers={(newModifiers) =>
+                        setModifiers({ ...modifiers, [selectedItem.id]: newModifiers })
+                      }
+                      onClose={() => setShowModifiers(false)}
+                    />
+                  )} */}
                     <button onClick={() => handleAddToCart(item)} className="button btn second">
                       Add to Cart
                     </button>

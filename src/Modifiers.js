@@ -42,18 +42,18 @@ function Modifiers(props) {
   
         return formattedPrice;
       }
-    console.log('modifierGroupId', data)
+    //console.log('modifierGroupId', data)
     if (loading === false && data != null) {
         const modifierItems = data.elements;
         const items = data.elements;
-        console.log('modifierItems', modifierItems)
+        //console.log('modifierItems', modifierItems)
       return (
         <div className="modifier-view">
         {data ? (
         modifierItems.map(modifier => (
             <div key={modifier.id}>
                 <input type="checkbox" id={modifier.id} name={modifier.name} value={modifier.price} />
-                <label htmlFor={modifier.id}>{modifier.name} (${formatPrice(modifier.price)})</label>
+                <label htmlFor={modifier.id}>{modifier.name} {modifier.price}</label>
             </div>
         ))
         ) : (
