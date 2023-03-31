@@ -1,5 +1,5 @@
 import React,{ useState } from 'react';
-import Fetch from './Fetch';
+import Fetch from '../../common/data/Fetch';
 import './Modifier.scss';
 
 
