@@ -1,0 +1,88 @@
+{
+    "elements": [
+        {
+            "id": "7PFX8E8F1TYR2",
+            "hidden": false,
+            "available": true,
+            "autoManage": false,
+            "name": "Cheesburger",
+            "price": 699,
+            "priceType": "FIXED",
+            "defaultTaxRates": true,
+            "cost": 0,
+            "isRevenue": true,
+            "stockCount": 0,
+            "modifierGroups": {
+                "elements": [
+                    {
+                        "id": "5JT064RRBZNVM",
+                        "name": "Burger toppings",
+                        "showByDefault": false,
+                        "modifierIds": "97DETYVJ21GVY,RCKFAZW4X1YHJ,GTQVAXX4ZD0YY,RN8JKFH57YAQ8",
+                        "items": {
+                            "elements": [
+                                {
+                                    "id": "7PFX8E8F1TYR2"
+                                }
+                            ]
+                        },
+                        "sortOrder": 0
+                    }
+                ]
+            },
+            "categories": {
+                "elements": [
+                    {
+                        "id": "A69GKYE519BSR",
+                        "name": "Burgers",
+                        "sortOrder": 1
+                    }
+                ]
+            },
+            "modifiedTime": 1679461764000
+        },
+        {
+            "id": "24PWTK922TKMC",
+            "hidden": false,
+            "available": true,
+            "autoManage": false,
+            "name": "Burger",
+            "price": 500,
+            "priceType": "FIXED",
+            "defaultTaxRates": true,
+            "cost": 0,
+            "isRevenue": true,
+            "stockCount": 0,
+            "modifierGroups": {
+                "elements": [
+                    {
+                        "id": "5JT064RRBZNVM",
+                        "name": "Burger toppings",
+                        "showByDefault": false,
+                        "modifierIds": "97DETYVJ21GVY,RCKFAZW4X1YHJ,GTQVAXX4ZD0YY,RN8JKFH57YAQ8",
+                        "items": {
+                            "elements": [
+                                {
+                                    "id": "24PWTK922TKMC"
+                                }
+                            ]
+                        },
+                        "sortOrder": 0
+                    }
+                ]
+            },
+            "categories": {
+                "elements": [
+                    {
+                        "id": "A69GKYE519BSR",
+                        "name": "Burgers",
+                        "sortOrder": 1
+                    }
+                ]
+            },
+            "modifiedTime": 1679011939000,
+            "colorCode": "#AE9009"
+        }
+    ],
+    "href": "http://sandbox.dev.clover.com/v3/merchants/J1X5PEM4A62A1/items?limit=100"
+}

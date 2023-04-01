@@ -137,64 +137,6 @@ $text-shadow: #fff;
   width: 100%;
 }
 
-.category-heading {
-  margin: 0 0 10px 0;
-  font-size: 36px;
-  text-align: left;
-}
-
-.item-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  grid-gap: 20px;
-}
-
-.item {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  text-align: center;
-}
-
-.item-image {
-  width: 200px;
-  object-fit: cover;
- //  margin-bottom: 10px;
-  border-radius: 18%;
-}
-
-.item-name {
-  margin: 0;
-  font-size: 38px;
-  color: $lightBlue
-}
-
-.item-price {
-  position: relative;
-  font-size: 52px;
-  margin: 5px 0 0 0;
-  color: $red;
-  font-weight: bold;
-  top: 15px;
-  text-shadow: -1px -1px 0 $text-shadow, 1px -1px 0 $text-shadow, -1px 1px 0 $text-shadow, 1px 1px 0 $text-shadow;
-}
-
-.add-to-cart-button {
-  background-color: #4caf50;
-  color: #ffffff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.add-to-cart-button:hover {
-  background-color: #388e3c;
-}
-
 /* "remove from cart" button */
 .remove-btn {
   background-color: $black;

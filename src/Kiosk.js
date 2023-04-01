@@ -1,5 +1,5 @@
 import React,{ useState } from 'react'
-import Fetch from './common/data/Fetch'
+import Fetch from './common/data/FetchItems'
 import Cart from './components/Cart/Cart'
 import Item from './components/item/Item'
 import Loading from './components/loader/Loading'
@@ -11,23 +11,55 @@ import './Kiosk.scss';
 function Kiosk() {
   const TAX_RATE = 0.05;
   const { data, loading, error } = Fetch("items");
-  const [modifiers, setModifiers] = useState({});
   const [cart, setCart] = useState([]);
   const [showCart, setShowCart] = useState(false);
+  const [modifier, setModifiers] = useState({});
+
+  // const handleAddToCart = (item, modifiers) => {
+  //   const existingItem = cart.find((cartItem) => cartItem.id === item.id);
+  //   if (existingItem) {
+  //     const updatedCart = cart.map((cartItem) =>
+  //       cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
+  //     );
+  //     setCart(updatedCart);
+  //   } else {
+  //     console.log('handle cart', modifiers)
+  //     setCart([...cart, { ...item, quantity: 1, modifiers }]);
+  //     setModifiers({ ...modifiers, [item.id]: modifiers });
+  //   }
+  // };
+
+  // const handleAddToCart = (item, modifiers) => {
+  //  // console.log('modifiers', modifiers)
+  //   const existingItemIndex = cart.findIndex(
+  //     (cartItem) => cartItem.id === item.id && JSON.stringify(cartItem.modifiers) === JSON.stringify(modifiers)
+  //   );
+  //   if (existingItemIndex >= 0) {
+  //     const updatedCart = [...cart];
+  //     updatedCart[existingItemIndex].quantity += 1;
+  //     setCart(updatedCart);
+  //   } else {
+  //     setCart([...cart, { ...item, quantity: 1, modifiers }]);
+  //   }
+  // };
 
   const handleAddToCart = (item, modifiers) => {
-    const existingItem = cart.find((cartItem) => cartItem.id === item.id);
-    if (existingItem) {
-      const updatedCart = cart.map((cartItem) =>
-        cartItem.id === item.id ? { ...cartItem, quantity: cartItem.quantity + 1 } : cartItem
-      );
+    console.log('modifiers', modifiers) 
+    const existingItemIndex = cart.findIndex(
+      (cartItem) =>
+        cartItem.id === item.id &&
+        JSON.stringify(cartItem.modifiers) === JSON.stringify(modifiers)
+    );
+    if (existingItemIndex >= 0) {
+      const updatedCart = [...cart];
+      updatedCart[existingItemIndex].quantity += 1;
       setCart(updatedCart);
     } else {
-      console.log('handle cart', modifiers)
       setCart([...cart, { ...item, quantity: 1, modifiers }]);
-      setModifiers({ ...modifiers, [item.id]: modifiers });
     }
   };
+
+  
 
   const handleShowCart = () => {
     setShowCart(!showCart);
@@ -44,8 +76,11 @@ function Kiosk() {
     newCart[index].quantity = newQuantity;
     setCart(newCart);
   };
-
- 
+console.log('cart', cart)
+if (loading) return (
+  <Loading />
+  );
+if (error) console.log(error);
   if (loading === false && data != null) {
     const itemsByCategoryId = groupItemsByCategoryId(data?.elements);
     return (
@@ -73,17 +108,14 @@ function Kiosk() {
             itemsByCategoryId={itemsByCategoryId}
             formatPrice={formatPrice}
             handleAddToCart={handleAddToCart}
-            modifiers={modifiers}
             setModifiers={setModifiers}
+            modifier={modifier}
           />
         )}
       </div>
     );
             
     }
-    if (loading) return (
-      <Loading />
-      );
-    if (error) console.log(error);
+
   }
 export default Kiosk;

@@ -6,7 +6,7 @@ function Fetch(fetchtype, seekingId) {
   const merchantID = 'J1X5PEM4A62A1',
     urlClover = `https://sandbox.dev.clover.com/v3/merchants/${merchantID}`,
     fetchCategoriesURI = '/categories',
-    fetchItemsURI = '/items?expand=categories%2CmodifierGroups',
+    fetchItemsURI = '/items?expand=modifierGroups%2Ccategories',
     fetchModifiersURI = `/modifier_groups/${seekingId}/modifiers`,
     options = {
     method: 'GET',
@@ -19,7 +19,7 @@ function Fetch(fetchtype, seekingId) {
     async function getMyData(url, type) {
       setLoading(true)
       try{
-          const returnMyData = await fetch(url, options)
+          await fetch(url, options)
           .then(res => res.json())
           .then((result) => {
               setLoading(false)

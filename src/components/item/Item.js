@@ -4,7 +4,7 @@ import './Item.scss'
 
 
 const Item = (props) => {
-    const {modifiers, setModifiers, itemsByCategoryId, formatPrice, handleAddToCart} = props
+    const {itemsByCategoryId, formatPrice, handleAddToCart, modifier, setModifiers } = props
     return (
     <>
      {Object.entries(itemsByCategoryId).map(([categoryId, items]) => (
@@ -22,16 +22,13 @@ const Item = (props) => {
                 {item.modifierGroups.elements[0]?.id &&
                 <ItemModifiers
                     item={item}
+                    setModifiers={setModifiers}
+                    modifier={modifier}
                     modifierGroupId={item.modifierGroups?.elements[0]?.id} 
-                    modifiers={modifiers}
-                    setModifiers={(newModifiers) =>
-                    setModifiers({ ...modifiers, [item.id]: newModifiers })
-                    }
-                    //onClose={() => setShowModifiers(false)}
                 />
                 }
 
-                <button onClick={() => handleAddToCart(item)} className="button btn third">
+                <button onClick={() => handleAddToCart(item, modifier)} className="button btn third">
                 Add to Cart
                 </button>
             </div>
