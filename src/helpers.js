@@ -12,39 +12,6 @@ export function groupItemsByCategoryId(items) {
     return acc;
     }, {});
   }
-
-export function formatPrice(price) {
-    let formattedPrice;
-
-    if (price.toString().length === 3) {
-      formattedPrice = (price / 100).toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    } else if (price.toString().length === 4) {
-      formattedPrice = (price / 100).toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    } else if (price.toString().length === 5) {
-      formattedPrice = (price / 100).toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    } else {
-      formattedPrice = price.toLocaleString("en-US", {
-        style: "currency",
-        currency: "USD",
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-    }
-
-    return formattedPrice;
+export function formatCurrency(value, locale = 'en-US', currency = 'USD') {
+    return value.toLocaleString(locale, { style: 'currency', currency });
   }

@@ -4,7 +4,7 @@ import './Item.scss'
 
 
 const Item = (props) => {
-    const {itemsByCategoryId, formatPrice, handleAddToCart, modifier, setModifiers } = props
+    const {itemsByCategoryId, handleAddToCart, modifier, setModifiers, formatCurrency } = props
     return (
     <>
      {Object.entries(itemsByCategoryId).map(([categoryId, items]) => (
@@ -14,13 +14,14 @@ const Item = (props) => {
             {items.map((item) => (
             <div key={item.id} className="item">
                 <div>
-                <p className="item-price">{formatPrice(item.price)}</p>
                 <img src={`https://source.unsplash.com/200x200/?${item.name}`} alt={item.name} className="item-image" />
                 </div>
-                <h3 className="item-name">{item.name}</h3>
+                <p className="item-price">{formatCurrency(item.price/100)}</p>
+                <p className="item-name">{item.name}</p>
                 <p className="item-description">{item.description}</p>
                 {item.modifierGroups.elements[0]?.id &&
                 <ItemModifiers
+                    formatCurrency={formatCurrency}
                     item={item}
                     setModifiers={setModifiers}
                     modifier={modifier}

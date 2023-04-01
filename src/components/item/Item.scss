@@ -44,11 +44,10 @@ $text-shadow: #fff;
 
 .item-price {
   position: relative;
-  font-size: 52px;
+  font-size: 32px;
   margin: 5px 0 0 0;
   color: $red;
   font-weight: bold;
-  top: 15px;
   text-shadow: -1px -1px 0 $text-shadow, 1px -1px 0 $text-shadow, -1px 1px 0 $text-shadow, 1px 1px 0 $text-shadow;
 }
 
