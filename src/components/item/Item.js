@@ -28,7 +28,6 @@ const Item = (props) => {
                     modifierGroupId={item.modifierGroups?.elements[0]?.id} 
                 />
                 }
-
                 <button onClick={() => handleAddToCart(item, modifier)} className="button btn third">
                 Add to Cart
                 </button>

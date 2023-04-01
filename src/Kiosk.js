@@ -18,6 +18,13 @@ function Kiosk() {
 
   const handleAddToCart = (item, modifiers) => {
     //console.log('modifiers', modifiers) 
+    const modifierArray = Object.values(modifiers);
+    const modifierSum = modifierArray.reduce(
+      (total, modifier) => parseFloat(total) + parseFloat(modifier.price),
+      0
+    );
+    console.log('modifierSum', modifierSum)
+    
     const existingItemIndex = cart.findIndex(
       (cartItem) =>
         cartItem.id === item.id &&
@@ -28,11 +35,12 @@ function Kiosk() {
       updatedCart[existingItemIndex].quantity += 1;
       setCart(updatedCart);
     } else {
-      setCart([...cart, { ...item, quantity: 1, modifiers }]);
+      console.log('item price', item.price)
+      const finalPrice = (parseFloat(item.price) + parseFloat(modifierSum));
+      console.log('finalPrice', finalPrice)
+      setCart([...cart, { ...item, price: finalPrice, quantity: 1, modifiers }]);
     }
   };
-
-  
 
   const handleShowCart = () => {
     setShowCart(!showCart);
@@ -49,6 +57,7 @@ function Kiosk() {
     newCart[index].quantity = newQuantity;
     setCart(newCart);
   };
+
 console.log('cart', cart)
 if (loading) return (
   <Loading />

@@ -30,7 +30,7 @@ function Cart(props) {
               modifiers.push(
                 <div className="modifierItem" key={modifier.id}>
                   {modifier.name}&nbsp;
-                  <span className="modifierPrice">
+                  <span key={modifier.id} className="modifierPrice">
                     {formatCurrency(modifier.price / 100)}
                   </span>
                 </div>

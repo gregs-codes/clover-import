@@ -4,7 +4,7 @@ import './Modifier.scss';
 
 
 function Modifiers(props) {
-    const { modifierGroupId, modifier, formatCurrency, setModifiers } = props;
+    const { item, modifierGroupId, modifier, formatCurrency, setModifiers } = props;
     const { data, loading, error } = Fetch("modifiers", modifierGroupId);
     
     //console.log(modifier)
@@ -30,12 +30,12 @@ function Modifiers(props) {
         const items = data.elements;
         //console.log('modifierItems', modifierItems)
       return (
-        <div className="modifier-view">
+        <div id={item.id} className="modifier-view">
         {data ? (
         modifierItems.map(modifier => (
             <div key={modifier.id}>
-                <input type="checkbox" id={modifier.id} name={modifier.name} value={modifier.price} onChange={handleCheckboxChange} />
-                <label htmlFor={modifier.id}>{modifier.name} {formatCurrency(modifier.price/100)}</label>
+                <input type="checkbox" id={`${item.id}-${modifier.id}`} name={modifier.name} value={modifier.price} onChange={(e)=>handleCheckboxChange(e)} />
+                <label htmlFor={`${item.id}-${modifier.id}`}>{modifier.name} {formatCurrency(modifier.price/100)}</label>
             </div>
         ))
         ) : (
