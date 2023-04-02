@@ -1,14 +1,57 @@
-import React from 'react';
+import React,{ useState }from 'react';
+//import FetchMakePayment from '../../common/data/FetchMakePayment';
 import './Cart.scss';
 
+  function useMakePayment(chargePrice) {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const merchantID = 'J1X5PEM4A62A1';
+    const urlClover = `https://scl-sandbox.dev.clover.com/v1/charges`;
+    const options = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'content-type': 'application/json',
+        authorization: 'Bearer a40a964a-76c2-7283-eb15-5273f7448803'
+      },
+      body: JSON.stringify({
+        ecomind: 'moto',
+        amount: chargePrice,
+        currency: 'usd',
+        source: 'test',
+        capture: true,
+        description: 'test'
+      })
+    };
+
+    async function makePayment() {
+      try {
+        const response = await fetch(urlClover, options);
+        const result = await response.json();
+        setData(result);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    }
+
+    return { data, loading, error, makePayment };
+  }
+
+
 function Cart(props) {
-    const { cart, TAX_RATE, updateCartItemQuantity, removeFromCart, formatCurrency } = props
+  const { cart, TAX_RATE, updateCartItemQuantity, removeFromCart, formatCurrency } = props
+  const totalPrice = cart.reduce((total, item) => total + (item.price/100) * item.quantity, 0);
+  const { data, loading, error, makePayment } = useMakePayment(totalPrice);
+
     for (const item of cart) {
         for (const modifierId in item.modifiers) {
           const modifier = item.modifiers[modifierId];
           //console.log(modifier.name, modifier.price);
           // Perform some operation on the modifier
-        
         }
       }
 
@@ -38,7 +81,6 @@ function Cart(props) {
             }
             return modifiers;
           }        
-
     return (
         <div className="cart-dropdown">
             <h3 className="cart-title">Your Cart</h3>
@@ -94,7 +136,6 @@ function Cart(props) {
                     </button>
                     </div>
                 </div>
-                
             </div>
 
             
@@ -115,6 +156,11 @@ function Cart(props) {
             Total: {formatCurrency(cart.reduce((total, item) => total + (item.price/100) * item.quantity, 0) * (1 + TAX_RATE))}
             </p>
          </div>
+         {cart.length > 0 && (
+            <button className="button btn checkout" onClick={() => makePayment(totalPrice*100)}>
+              Checkout
+            </button>
+          )}
       </div>
     )}
 export default Cart;

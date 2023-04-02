@@ -33,7 +33,7 @@ function Modifiers(props) {
         <div id={item.id} className="modifier-view">
         {data ? (
         modifierItems.map(modifier => (
-            <div key={modifier.id}>
+            <div key={`${item.id}-${modifier.id}`}>
                 <input type="checkbox" id={`${item.id}-${modifier.id}`} name={modifier.name} value={modifier.price} onChange={(e)=>handleCheckboxChange(e)} />
                 <label htmlFor={`${item.id}-${modifier.id}`}>{modifier.name} {formatCurrency(modifier.price/100)}</label>
             </div>
