@@ -1,4 +1,5 @@
 import React,{ useState }from 'react';
+import { v4 as uuidv4 } from 'uuid';
 //import FetchMakePayment from '../../common/data/FetchMakePayment';
 import './Cart.scss';
 
@@ -6,7 +7,7 @@ import './Cart.scss';
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const uuid4_key = uuidv4(); // Generate UUID key
     const merchantID = 'J1X5PEM4A62A1';
     const urlClover = `https://scl-sandbox.dev.clover.com/v1/charges`;
     const options = {
@@ -14,16 +15,18 @@ import './Cart.scss';
       headers: {
         accept: 'application/json',
         'content-type': 'application/json',
-        authorization: 'Bearer a40a964a-76c2-7283-eb15-5273f7448803'
+        authorization: 'Bearer a40a964a-76c2-7283-eb15-5273f7448803',
+        'idempotency-key': {uuid4_key},
       },
       body: JSON.stringify({
-        ecomind: 'moto',
-        amount: chargePrice,
+        ecomind: 'ecom',
+        source: 'alternate_tender',
+        amount: {chargePrice},
         currency: 'usd',
-        source: 'test',
-        capture: true,
-        description: 'test'
-      })
+        tax_rate_uuid:'1'
+      }),
+      mode: 'cors',
+      credentials: 'include'  
     };
 
     async function makePayment() {
@@ -45,7 +48,7 @@ import './Cart.scss';
 function Cart(props) {
   const { cart, TAX_RATE, updateCartItemQuantity, removeFromCart, formatCurrency } = props
   const totalPrice = cart.reduce((total, item) => total + (item.price/100) * item.quantity, 0);
-  const { data, loading, error, makePayment } = useMakePayment(totalPrice);
+  const { data, loading, error, makePayment } = useMakePayment(totalPrice*100);
 
     for (const item of cart) {
         for (const modifierId in item.modifiers) {
@@ -157,7 +160,7 @@ function Cart(props) {
             </p>
          </div>
          {cart.length > 0 && (
-            <button className="button btn checkout" onClick={() => makePayment(totalPrice*100)}>
+            <button className="button btn checkout" onClick={() => makePayment(cart.reduce((total, item) => total + (item.price/100) * item.quantity, 0) * (1 + TAX_RATE))}>
               Checkout
             </button>
           )}
