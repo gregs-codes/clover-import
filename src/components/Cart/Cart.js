@@ -49,7 +49,105 @@ function Cart(props) {
   const { cart, TAX_RATE, updateCartItemQuantity, removeFromCart, formatCurrency } = props
   const totalPrice = cart.reduce((total, item) => total + (item.price/100) * item.quantity, 0);
   const { data, loading, error, makePayment } = useMakePayment(totalPrice*100);
+  // Define state variables for checkout
+  const [checkoutStatus, setCheckoutStatus] = useState('idle'); // idle, processing, success, error
+  const [checkoutError, setCheckoutError] = useState(null);
 
+  const handleCheckout = async () => {
+    // Ensure the cart is not empty
+    if (cart.length === 0) {
+      return;
+    }
+
+    // Set checkout status to "processing"
+    setCheckoutStatus('processing');
+
+    // Generate a unique key for idempotency
+    const uuid4_key = uuidv4();
+
+    // Define the Clover API endpoint for creating a hosted checkout session
+    const merchantID = 'J1X5PEM4A62A1';
+    const urlClover = `https://sandbox.dev.clover.com/invoicingcheckoutservice/v1/checkouts`;
+
+    // Construct the request body (customize as needed)
+    const requestBody = {
+      customer: {
+        firstName: 'Greg',
+        lastName: 'Testing',
+        email: 'yegor78@gmail.com',
+        phoneNumber: '123-456-7890',
+        address: {
+          // Include customer address details if needed
+        },
+        customerMetaData: {
+          redirectUrls: {
+            shoppingCart: 'https://example.com/shopping-cart', // Replace with your actual redirect URL
+          },
+        },
+      },
+      shoppingCart: {
+        lineItems: cart.map((item) => ({
+          note: item.name, // You can include item details in the note
+          price: item.price, // Unit price of the item
+          name: item.name, // Item name
+          unitQty: item.quantity, // Item quantity
+          taxRates: [
+            {
+              rate: TAX_RATE, // Tax rate for the item
+              taxAmount: (item.price * item.quantity * TAX_RATE) / 100, // Tax amount for the item
+              name: 'Sales Tax', // Tax name (customize as needed)
+              id: 'tax123', // Tax Identifier (customize as needed)
+            },
+          ],
+          itemRefUuid: item.id, // Universally unique identifier (UUID) or reference number of the item
+        })),
+        total: totalPrice * (1 + TAX_RATE), // Total amount for the items in the shopping cart, including tax and tip
+        subtotal: totalPrice, // Subtotal amount for the items in the shopping cart
+        totalTaxAmount: (totalPrice * TAX_RATE), // Total tax amount
+        tipAmount: 0, // Tip amount (customize as needed)
+        taxSummaries: {
+          // Summary of the tax used on an object (customize as needed)
+        },
+      },
+    };
+    
+
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer a40a964a-76c2-7283-eb15-5273f7448803',
+        'X-Clover-Merchant-Id': merchantID,
+        'Idempotency-Key': uuid4_key,
+      },
+      body: JSON.stringify(requestBody),
+    };
+
+    try {
+      // Make the API request to create a hosted checkout session
+      const response = await fetch(urlClover, requestOptions);
+      if (response.ok) {
+        const checkoutSession = await response.json();
+
+        // Extract the checkout URL from the response
+        const checkoutURL = checkoutSession.redirectUrls.shoppingCart;
+
+        // Redirect the user to the checkout page
+        window.location.href = checkoutURL;
+
+        // Set checkout status to "success"
+        setCheckoutStatus('success');
+      } else {
+        // Handle error cases
+        setCheckoutStatus('error');
+        setCheckoutError('Checkout request failed');
+      }
+    } catch (error) {
+      // Handle network errors
+      setCheckoutStatus('error');
+      setCheckoutError('Network error occurred');
+    }
+  };
     for (const item of cart) {
         for (const modifierId in item.modifiers) {
           const modifier = item.modifiers[modifierId];
@@ -160,9 +258,17 @@ function Cart(props) {
             </p>
          </div>
          {cart.length > 0 && (
-            <button className="button btn checkout" onClick={() => makePayment(cart.reduce((total, item) => total + (item.price/100) * item.quantity, 0) * (1 + TAX_RATE))}>
+            // <button className="button btn checkout" onClick={() => makePayment(cart.reduce((total, item) => total + (item.price/100) * item.quantity, 0) * (1 + TAX_RATE))}>
+            //   Checkout
+            // </button>
+
+            <button
+              className="button btn checkout"
+              onClick={handleCheckout}
+              disabled={cart.length === 0 || checkoutStatus === 'processing'}
+              >
               Checkout
-            </button>
+              </button>
           )}
       </div>
     )}
