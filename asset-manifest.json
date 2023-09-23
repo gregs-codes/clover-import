@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/clover-import/static/css/main.11191fc2.css",
+    "main.js": "/clover-import/static/js/main.56cb851a.js",
+    "index.html": "/clover-import/index.html",
+    "main.11191fc2.css.map": "/clover-import/static/css/main.11191fc2.css.map",
+    "main.56cb851a.js.map": "/clover-import/static/js/main.56cb851a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.11191fc2.css",
+    "static/js/main.56cb851a.js"
+  ]
+}
